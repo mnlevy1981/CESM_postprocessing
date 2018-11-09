@@ -4,21 +4,21 @@ from pyaverager import PyAverager, specification
 
 #### User modify ####
 
-in_dir='/glade/p/tdd/asap/data/b.e12.B1850C5CN.ne30_g16.init.ch.027/ocn/hist/'
-out_dir= '/glade/scratch/mickelso/averager_sandbox/results/ocn/slice/'
-pref= 'b.e12.B1850C5CN.ne30_g16.init.ch.027.pop.h'
+in_dir='/glade/scratch/cmip6/archive/b.e21.BW1850.f09_g17.CMIP6-piControl.001/ocn/hist'
+out_dir= '/glade/scratch/mlevy/IOMB-scratch/b.e21.BW1850.f09_g17.CMIP6-piControl.001.climatology/ocn/proc/iomb/MODELS/b.e21.BW1850.f09_g17.CMIP6-piControl.001.climatology'
+pref= 'b.e21.BW1850.f09_g17.CMIP6-piControl.001.pop.h'
 htype= 'slice'
-average = ['tavg:1:10','mavg:1:10','moc:1:10','mocm:1:10','hor.meanConcat:1:10']
+average = ['tavg:317:326','mavg:317:326']
 wght= False
 ncfrmt = 'netcdf'
-serial=False
+serial=True
 
-var_list = ['TEMP', 'SALT']
-mean_diff_rms_obs_dir = '/glade/p/work/mickelso/PyAvg-OMWG-obs/obs/'
+var_list = ['NO3', 'O2', 'PO4', 'SiO3']
+mean_diff_rms_obs_dir = '/glade/work/mickelso/older_work/PyAvg-OMWG-obs/obs/'
 region_nc_var = 'REGION_MASK'
 regions={1:'Sou',2:'Pac',3:'Ind',6:'Atl',8:'Lab',9:'Gin',10:'Arc',11:'Hud',0:'Glo'}
 region_wgt_var = 'TAREA'
-obs_dir = '/glade/p/work/mickelso/PyAvg-OMWG-obs/obs/'
+obs_dir = '/glade/work/mickelso/older_work/PyAvg-OMWG-obs/obs/'
 obs_file = 'obs.nc'
 reg_obs_file_suffix = '_hor_mean_obs.nc'
 vertical_levels = 60
