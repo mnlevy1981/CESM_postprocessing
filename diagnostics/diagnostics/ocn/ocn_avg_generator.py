@@ -325,7 +325,8 @@ def createClimFiles(start_year, stop_year, in_dir, htype, tavgdir, case, tseries
         # call the pyAverager with the just SALT and TEMP for mavg only
         avgList = []
         avgList.append('mavg:{0}:{1}'.format(start_year, stop_year))
-        tmpInVarList = ['SALT', 'TEMP']
+        # FIXME: don't want to hard-code BGC vars here, need to take advantage of XML
+        tmpInVarList = ['SALT', 'TEMP', 'NO3']
         if main_comm.is_manager():
             debugMsg('Calling callPyAverager with averageList = {0}'.format(avgList), header=True, verbosity=1)
             debugMsg(' and inVarList = {0}'.format(tmpInVarList), header=True, verbosity=1)

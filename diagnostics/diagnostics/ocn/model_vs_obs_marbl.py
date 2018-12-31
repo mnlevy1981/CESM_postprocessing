@@ -9,7 +9,7 @@ import datetime
 #import errno
 #import glob
 import itertools
-#import os
+import os
 import sys
 import re
 #import shutil
@@ -80,11 +80,56 @@ class modelVsObsMARBL(OceanDiagnostic):
         local_requested_plots = list()
         local_html_list = list()
 
+        # import marbl-diags (replace this with importlib?)
+        sys.path.append(os.path.join(env['POSTPROCESS_PATH'], 'ocn_diag', 'marbl-diags'))
+        import marbl_diags
+        # FIXME: config_key = casename? and config_dict based on XML vars? var_dict from YAML?
+        config_key = 'climo state plots'
+        config_dict = dict()
+        config_dict[config_key] = dict()
+        config_dict[config_key]['short_name'] = config_key
+        config_dict[config_key]['description'] = 'MARBL diagnostics from a CESM run'
+        config_dict[config_key]['dirout'] = env['WORKDIR']
+        config_dict[config_key]['source'] = 'ocean_diagnostics'
+        config_dict[config_key]['grid'] = 'POP_gx1v7'
+        config_dict[config_key]['operations'] = ['plot_climo']
+        # FIXME: don't hard-code variable list!
+        #        Also need to map from POP varname to general name -- NO3 -> nitrate
+        config_dict[config_key]['variable_list'] = ['nitrate']
+        config_dict[config_key]['depth_list'] = [0.]
+        config_dict[config_key]['cache_data'] = False
+        config_dict[config_key]['data_sources'] = dict()
+        config_dict[config_key]['data_sources']['cesm_out'] = dict()
+        config_dict[config_key]['data_sources']['cesm_out']['source'] = 'cesm'
+        config_dict[config_key]['data_sources']['cesm_out']['open_dataset'] = dict()
+        config_dict[config_key]['data_sources']['cesm_out']['open_dataset']['filetype'] = 'climo'
+        # FIXME: Get dirin from XML
+        config_dict[config_key]['data_sources']['cesm_out']['open_dataset']['dirin'] = '/glade/scratch/mlevy/archive/c.e21.C1850ECO.T62_g17.test_postprocessing/ocn/proc/climo.1.3'
+        config_dict[config_key]['data_sources']['cesm_out']['open_dataset']['case'] = 'CASENAME'
+        config_dict[config_key]['data_sources']['cesm_out']['open_dataset']['stream'] = 'mavg'
+        # Get datestr from XML
+        config_dict[config_key]['data_sources']['cesm_out']['open_dataset']['datestr'] = '0001-0003'
+        var_dict = dict()
+        var_dict['nitrate'] = dict()
+        var_dict['nitrate']['plot_units'] = 'mmol/m^3'
+        var_dict['nitrate']['contours'] = dict()
+        var_dict['nitrate']['contours']['levels'] = [0, 0.1, 0.2, 0.3, 0.4, 0.6, 0.8, 1, 1.5, 2, 4, 6, 8, 10, 12, 14,
+                                                     16, 18, 20, 22, 24, 26, 28, 30, 34, 38, 42]
+        var_dict['nitrate']['contours']['midpoint'] = 2
+        var_dict['nitrate']['contours']['extend'] = 'both'
+        var_dict['nitrate']['contours']['cmap'] = 'PRGn'
+
+        # FIXME: need to figure out how to parallelize this!
+        # Ideally by looping over variables and setting config_dict[config_key]['variable_list']?
+        tmp = marbl_diags.AnalysisElements(config_key, config_dict[config_key], var_dict)
+        tmp.do_analysis()
+
         # define the template_path for all tasks
         template_path = '{0}/diagnostics/diagnostics/ocn/Templates'.format(env['POSTPROCESS_PATH'])
 
         # all the plot module XML vars start with MVOMARBL_PM_ -- need to strip that off
         for key, value in env.iteritems():
+            # FIXME: auto-gen MVOMARBL_PM_ xml variables?
             if (re.search("\AMVOMARBL_PM_", key) and value.upper() in ['T','TRUE']):
                 k = key[10:]
                 requested_plots.append(k)
