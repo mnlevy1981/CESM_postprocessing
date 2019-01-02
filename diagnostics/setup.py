@@ -38,11 +38,11 @@ def get_version():
 
 
 def get_requires():
-    return readfile(REQUIRES_FILE, lambda f: f.read().strip())
+    return readfile(REQUIRES_FILE, lambda f: f.read().strip()).splitlines()
 
 
 def get_dependencies():
-    return readfile(DEPENDENCIES_FILE, lambda f: f.read().strip())
+    return readfile(DEPENDENCIES_FILE, lambda f: f.read().strip()).splitlines()
 
 setup(
     name="diagnostics",
@@ -57,7 +57,7 @@ setup(
              'diagnostics/imb/imb_diags_generator.py', 'diagnostics/imb/imb_initialize.py',
              'diagnostics/lnd/lnd_regrid_generator.py'],
     install_requires=get_requires(),
-    #dependency_links=get_dependencies(),
+    dependency_links=get_dependencies(),
     include_package_data=True,
     zip_safe=True,
     test_suite="diagnostics.tests",
