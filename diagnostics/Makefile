@@ -6,9 +6,11 @@ test : FORCE
 
 develop : FORCE
 	python setup.py $@
+	pip install -e git+https://github.com/NCAR/esmlab.git@v0.0.1#egg=esmlab
 
 install : FORCE
 	python setup.py $@
+	pip install -e git+https://github.com/NCAR/esmlab.git@v0.0.1#egg=esmlab
 
 clean : 
 	-rm -f *~ *.CKP *.ln *.BAK *.bak .*.bak \

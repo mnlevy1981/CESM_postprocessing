@@ -27,8 +27,7 @@ SUBDIRS = \
         conformer \
         conform \
 	ilamb \
-	diagnostics \
-  esmlab
+	diagnostics
 
 # MAKECMDGOALS is the make option: make 'clobber' or 'all'
 TARGET = $(MAKECMDGOALS)
