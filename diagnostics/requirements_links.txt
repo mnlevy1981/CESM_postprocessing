@@ -1,1 +1,0 @@
-git+https://github.com/NCAR/esmlab.git@v0.0.1#egg=esmlab-0.0.1
