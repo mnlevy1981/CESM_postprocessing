@@ -137,12 +137,6 @@ class modelVsObsMARBL(OceanDiagnostic):
             if (re.search("\AMVOMARBL_PM_", key) and value.upper() in ['T','TRUE']):
                 k = key[9:]
                 requested_plots.append(k)
-                # FIXME: need to figure out how to parallelize this!
-                # Ideally by looping over variables and setting config_dict[config_key]['variable_list']?
-                Elem = marbl_diags.AnalysisElements(k, config_dict[k], var_dict)
-                Elem.do_analysis()
-                del(Elem)
-
 
         scomm.sync()
         print('model vs. obs MARBL - after scomm.sync requested_plots = {0}'.format(requested_plots))
@@ -182,7 +176,12 @@ class modelVsObsMARBL(OceanDiagnostic):
         scomm.sync()
 
         for requested_plot in local_requested_plots:
-            print('model vs obs MARBL - insert code to plot {0} here'.format(requested_plot))
+            # FIXME: do I need to do more to ensure parallelization?
+            #        (looping over variables somehow?)
+            Elem = marbl_diags.AnalysisElements(k, config_dict[k], var_dict)
+            Elem.do_analysis()
+            del(Elem)
+
         scomm.sync()
 
         # define a tag for the MPI collection of all local_html_list variables
