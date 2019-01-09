@@ -14,6 +14,7 @@ ilamb/ilamb
 reshaper/pyReshaper
 conformer/conformer
 mpi_utils/pyTools
+ocn_diag/marbl-diags
 
 # Ignore python build and dist dirs
 cesm_utils/dist/

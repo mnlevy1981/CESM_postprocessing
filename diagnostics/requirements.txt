@@ -1,3 +1,5 @@
 jinja2==2.7.3
 numpy>=1.8.1
 ilamb>=2.1
+toolz
+esmlab==0.0.1

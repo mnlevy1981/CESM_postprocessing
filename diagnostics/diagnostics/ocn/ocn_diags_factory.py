@@ -5,7 +5,7 @@
 # import the Plot modules
 from ocn_diags_bc import UnknownDiagType
 import model_vs_obs
-import model_vs_obs_ecosys
+import model_vs_obs_marbl
 import model_vs_control
 #import model_vs_control_ecosys
 import model_timeseries
@@ -18,8 +18,8 @@ def oceanDiagnosticsFactory(diag_type):
     if diag_type == 'MODEL_VS_OBS':
         diag = model_vs_obs.modelVsObs()
 
-    elif diag_type == 'MODEL_VS_OBS_ECOSYS':
-        diag = model_vs_obs_ecosys.modelVsObsEcosys()
+    elif diag_type == 'MODEL_VS_OBS_MARBL':
+        diag = model_vs_obs_marbl.modelVsObsMARBL()
 
     elif diag_type == 'MODEL_VS_CONTROL':
         diag = model_vs_control.modelVsControl()
