@@ -109,7 +109,7 @@ class modelVsObsMARBL(OceanDiagnostic):
         config_dict[config_key]['dirout'] = env['WORKDIR']
         config_dict[config_key]['source'] = 'ocean_diagnostics'
         config_dict[config_key]['grid'] = 'POP_gx1v7'
-        config_dict[config_key]['operations'] = ['plot_climo']
+        config_dict[config_key]['operations'] = ['plot_ann_climo']
         # FIXME: don't hard-code variable list!
         #        Also need to map from POP varname to general name -- NO3 -> nitrate
         config_dict[config_key]['variable_list'] = ['nitrate']
@@ -120,11 +120,11 @@ class modelVsObsMARBL(OceanDiagnostic):
         config_dict[config_key]['data_sources'][casename] = dict()
         config_dict[config_key]['data_sources'][casename]['source'] = 'cesm'
         config_dict[config_key]['data_sources'][casename]['open_dataset'] = dict()
-        config_dict[config_key]['data_sources'][casename]['open_dataset']['filetype'] = 'climo'
+        config_dict[config_key]['data_sources'][casename]['open_dataset']['filetype'] = 'ann_climo'
         # FIXME: Get dirin from XML
         config_dict[config_key]['data_sources'][casename]['open_dataset']['dirin'] = '/glade/scratch/mlevy/archive/c.e21.C1850ECO.T62_g17.test_postprocessing/ocn/proc/climo.1.3'
         config_dict[config_key]['data_sources'][casename]['open_dataset']['case'] = casename
-        config_dict[config_key]['data_sources'][casename]['open_dataset']['stream'] = 'mavg'
+        config_dict[config_key]['data_sources'][casename]['open_dataset']['stream'] = 'tavg'
         # Get datestr from XML
         config_dict[config_key]['data_sources'][casename]['open_dataset']['datestr'] = '0001-0003'
 
