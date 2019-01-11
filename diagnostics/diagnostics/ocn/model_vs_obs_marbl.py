@@ -88,6 +88,9 @@ class modelVsObsMARBL(OceanDiagnostic):
         casename = env['CASE']
 
         # Define variables for MARBL diags
+        # FIXME: don't hard-code variable list!
+        #        Also need to map from POP varname to general name -- NO3 -> nitrate
+        #        (Currently, user has no control over what variables are plotted)
         var_dict = dict()
         var_dict['nitrate'] = dict()
         var_dict['nitrate']['plot_units'] = 'mmol/m^3'
@@ -109,9 +112,8 @@ class modelVsObsMARBL(OceanDiagnostic):
         config_dict[config_key]['dirout'] = env['WORKDIR']
         config_dict[config_key]['source'] = 'ocean_diagnostics'
         config_dict[config_key]['grid'] = 'POP_gx1v7'
+        config_dict[config_key]['stats_in_title'] = True
         config_dict[config_key]['operations'] = ['plot_ann_climo']
-        # FIXME: don't hard-code variable list!
-        #        Also need to map from POP varname to general name -- NO3 -> nitrate
         config_dict[config_key]['variable_list'] = ['nitrate']
         config_dict[config_key]['depth_list'] = [0, 50, 100, 200, 300, 500, 750, 1000, 1500, 2000, 2500, 3000, 3500, 4000]
         config_dict[config_key]['climo_time_periods'] = ['ANN']
